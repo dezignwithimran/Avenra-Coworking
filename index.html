@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en" data-type="service" data-radius="soft" data-buttons="arrow" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Avenra: coworking desks and private offices for founders</title>
+<meta name="description" content="Hot desks, fixed desks and lockable offices for teams of 1 to 20 on monthly terms, with meeting rooms by the hour. Book a 20-minute tour.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Avenra: coworking desks and private offices for founders">
+<meta property="og:description" content="Desks from $290 a month and offices for teams of 2 to 20, on monthly terms.">
+<meta property="og:image" content="share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#ffffff">
+<!-- <link rel="canonical" href="https://[the client's domain]/"> -->
+<meta name="site-kind" content="other">
+<meta name="page-type" content="service">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400..700&family=Red+Hat+Text:wght@400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/ui/cards.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<style>
+:root {
+  --p-bg: #ffffff; --p-surface: #f2f2f2; --p-ink: #0a0a0a; --p-muted: #6b6b6b;
+  --p-accent: #d92b21; --p-accent-ink: #ffffff; --p-action: #d92b21; --p-action-ink: #ffffff;
+  --p-inv-bg: #000000; --p-inv-surface: #010101; --p-inv-ink: #ffffff; --p-inv-muted: #868686;
+  --p-inv-accent: #d92b21; --p-inv-accent-ink: #ffffff; --p-inv-action: #d92b21; --p-inv-action-ink: #ffffff;
+  --font-display: "Red Hat Display", system-ui, sans-serif;
+  --font-text: "Red Hat Text", system-ui, sans-serif;
+  --display-weight: 400;
+  --display-tracking: -0.025em;
+  --display-tracking-xl: -0.035em;
+}
+</style>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="assets/moments/moments.js">
+<link rel="modulepreload" href="assets/moments/lib.js">
+<link rel="modulepreload" href="assets/moments/word-highlight/moment.js">
+<!-- page CSS: what sits inside a visual (the floor model) and the photographs' frames -->
+<style>
+  /* motion tokens (transitions.dev scale) used by the floor model */
+  :root {
+    --duration-fast: 250ms; --duration-slow: 400ms;
+    --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* split photographs: one ratio per row, as tall as the column beside them */
+  .split-photo { margin: 0; border-radius: var(--r-lg); overflow: hidden; height: min(560px, calc(100svh - 300px)); min-height: 400px; }
+  @media (min-width: 1024px) { #book .split-photo { height: min(500px, calc(100svh - 360px)); } }
+  @media (min-width: 1024px) { #day-pass .split-photo { height: min(660px, calc(100svh - 240px)); } }
+  .split-photo > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 1023px) { .split-photo { height: auto; min-height: 0; aspect-ratio: 4 / 3; margin-top: var(--s-7); } }
+
+  /* ---------- the building model: four floors, drawn in CSS 3D ---------- */
+  .model { position: relative; height: 100%; min-height: 520px; border-radius: var(--r-lg); background: var(--surface);
+           overflow: hidden; display: grid; place-items: center; }
+  .model__scene { --u: 290px; --gap: 92px; --slab: 14px; width: var(--u); height: var(--u);
+                  transform-style: preserve-3d; transform: translateY(30%) rotateX(58deg) rotateZ(-40deg); }
+  .floor { position: absolute; inset: 0; transform-style: preserve-3d;
+           transform: translateZ(calc(var(--i) * var(--gap)));
+           transition: transform var(--duration-slow) var(--ease-smooth-out); }
+  .floor__top { position: absolute; inset: 0; transform: translateZ(var(--slab)); background: #fff;
+                border: 1px solid color-mix(in oklab, var(--ink) 14%, transparent); border-radius: 4px;
+                padding: 18px; box-shadow: 0 0 0 0 transparent;
+                transition: border-color var(--duration-fast) var(--ease-smooth-out), box-shadow var(--duration-fast) var(--ease-smooth-out); }
+  .floor__side { position: absolute; background: color-mix(in oklab, var(--ink) 9%, #fff); }
+  .floor__side--y { left: 0; bottom: 0; width: 100%; height: var(--slab); transform-origin: bottom; transform: rotateX(90deg); }
+  .floor__side--x { right: 0; top: 0; width: var(--slab); height: 100%; transform-origin: right; transform: rotateY(-90deg); background: color-mix(in oklab, var(--ink) 16%, #fff); }
+  .floor[data-floor="1"]::before { content: ""; position: absolute; inset: 4%; background: rgb(217 43 33 / .55); filter: blur(40px); transform: translate(-6%, 6%); opacity: .55; }
+
+  /* the plans on each floor (inline SVG) */
+  .fplan { display: block; width: 100%; height: 100%; overflow: visible; }
+  .fplan rect { vector-effect: non-scaling-stroke; transition: fill var(--duration-fast) var(--ease-smooth-out), stroke var(--duration-fast) var(--ease-smooth-out); }
+  .pl-room { fill: none; stroke: color-mix(in oklab, var(--ink) 32%, transparent); stroke-width: 1.5; }
+  .pl-fill { fill: color-mix(in oklab, var(--ink) 9%, #fff); }
+
+  /* one floor picked: it rises out of the stack and takes the accent */
+  .model[data-pick="1"] .floor[data-floor="1"], .model[data-pick="2"] .floor[data-floor="2"],
+  .model[data-pick="3"] .floor[data-floor="3"], .model[data-pick="4"] .floor[data-floor="4"] {
+    transform: translateZ(calc(var(--i) * var(--gap) + 34px)); }
+  .model[data-pick="1"] .floor[data-floor="1"] .floor__top, .model[data-pick="2"] .floor[data-floor="2"] .floor__top,
+  .model[data-pick="3"] .floor[data-floor="3"] .floor__top, .model[data-pick="4"] .floor[data-floor="4"] .floor__top {
+    border-color: var(--p-accent); box-shadow: 0 0 0 1px var(--p-accent); }
+  .model[data-pick="1"] .floor[data-floor="1"] .pl-room, .model[data-pick="4"] .floor[data-floor="4"] .pl-room { stroke: var(--p-accent); }
+  .model[data-pick="1"] .floor[data-floor="1"] .pl-fill, .model[data-pick="2"] .floor[data-floor="2"] .pl-fill,
+  .model[data-pick="3"] .floor[data-floor="3"] .pl-fill { fill: color-mix(in oklab, var(--p-accent) 26%, #fff); }
+
+  /* the floor list beside the model: the picked row gets a red marker, its words stay in ink */
+  #floors .rows > li { cursor: default; outline-offset: 4px; }
+  #floors .rows__name { display: inline-flex; align-items: center; gap: var(--s-2); }
+  #floors .rows__name::before { content: ""; width: 8px; height: 8px; border-radius: 99px; background: var(--p-accent);
+    transform: scale(0); margin-right: -16px; transition: transform var(--duration-fast) var(--ease-smooth-out), margin var(--duration-fast) var(--ease-smooth-out); }
+  #floors .rows > li.is-picked .rows__name::before { transform: scale(1); margin-right: 0; }
+
+  @media (max-width: 1023px) {
+    .model { min-height: 0; height: auto; aspect-ratio: 1 / 1; margin-top: var(--s-7); }
+  }
+  @media (max-width: 639px) {
+    .model { aspect-ratio: 1 / 1.05; }
+    .model__scene { --u: 150px; --gap: 50px; --slab: 9px; }
+    .floor__top { padding: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .floor, .floor__top, .fplan rect, #floors .rows__name::before { transition: none; }
+  }
+
+  /* ---------- louder: bigger headings, a black hero box, a dark model stage ---------- */
+  :root { --t-h2: clamp(26px, 1.4vw + 16px, 40px); }
+  h2 { letter-spacing: var(--display-tracking); line-height: 1.1; }
+  #about .mo-wh__text { font-size: clamp(28px, 2.6vw + 12px, 56px); line-height: 1.08; letter-spacing: var(--display-tracking-xl); max-width: 22ch; }
+  #about .t-label { color: #fff; }
+  .model { background: #0b0b0b; }
+  .model .floor__top { border-color: rgb(255 255 255 / .1); }
+  #floors .rows__value { font: 500 18px/1.3 var(--font-display); letter-spacing: -0.01em; }
+  #floors .rows > li:last-child { border-bottom: 0; padding-bottom: 0; }
+  #day-pass h2 { max-width: 12ch; }
+  /* a deeper red for the band, so white text on it reads at 7:1 */
+  #day-pass.ground-brand { --bg: #a01a14; --action-ink: #a01a14; }
+  .close__word { line-height: 1; padding-top: .04em; }
+
+  /* the dropdown: our own chevron, inset 16px from the right edge like the text is from the left */
+  .field select { appearance: none; -webkit-appearance: none; padding-right: 48px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5l3 3 3-3' fill='none' stroke='%230a0a0a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 16px center; background-size: 14px 14px; }
+
+
+  /* ---------- the hero: an inset photo frame, the words on its foot, the finder card on the right ---------- */
+  /* the rounded photo frame is the hero's background layer, inset 16px; the .wrap holds the words and the card on the page's lines */
+  .hero--inset { position: relative; height: 100svh; padding: calc(var(--nav) + 72px) 0 72px; display: flex; align-items: flex-end; isolation: isolate; }
+  .hero--inset > .wrap { position: relative; z-index: 1; }
+  .hero--inset .hero-text { align-items: end; }
+  .hero-frame { position: absolute; z-index: 0; inset: 0; border-radius: 0; overflow: hidden; isolation: isolate; background: #111; }
+  .hero-frame__img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 30%; }
+  .hero-frame::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(to bottom, rgb(0 0 0 / .55), rgb(0 0 0 / 0) 22%),
+                linear-gradient(to top, rgb(0 0 0 / .78), rgb(0 0 0 / .25) 55%, rgb(0 0 0 / 0) 78%),
+                linear-gradient(to right, rgb(0 0 0 / .6), rgb(0 0 0 / .25) 45%, rgb(0 0 0 / 0) 70%); }
+  .hero-frame__copy { color: #fff; display: flex; flex-direction: column; justify-content: flex-end; gap: var(--s-5); }
+  .hero-frame__copy h1 { margin: 0; color: #fff; font: var(--display-weight) clamp(42px, 4.6vw, 76px)/1 var(--font-display);
+    letter-spacing: -0.04em; max-width: 10ch; text-wrap: balance; }
+  .hero-frame__copy h1 em { font-style: normal; color: var(--p-accent); }
+  .hero-frame__lead { margin: 0; color: rgb(255 255 255 / .9); font-size: var(--t-lead); line-height: 1.5; max-width: 40ch; }
+  .hero-frame__copy .btn-row { margin-top: var(--s-2); }
+  html[data-buttons] .hero--inset .btn.btn--secondary.hero-frame__pill { background: #fff; color: #0a0a0a; border: 0; text-decoration: none;
+    min-height: 48px; padding: 0 22px 0 24px; border-radius: 999px; gap: 10px; font-weight: 500; }
+  html[data-buttons] .hero--inset .btn.btn--secondary.hero-frame__pill:hover { background: #ececec; }
+  .hero-frame__book { display: none; }
+  html[data-buttons] .hero--inset .btn.btn--primary.hero-frame__book { min-height: 48px; border-radius: 999px; padding: 0 22px 0 24px; }
+
+  .finder { background: #fff; color: #0a0a0a; border-radius: 22px; padding: 32px; display: flex; flex-direction: column; justify-content: flex-end; gap: var(--s-5);
+    box-shadow: 0 40px 80px -30px rgb(0 0 0 / .6), 0 0 0 1px rgb(0 0 0 / .04); }
+  .finder__head { display: grid; gap: 6px; padding-bottom: var(--s-1); }
+  .finder__sub { margin: 0; font-size: 14px; line-height: 1.5; color: #555; max-width: 44ch; }
+  .finder__title { margin: 0; font: var(--display-weight) 26px/1.15 var(--font-display); letter-spacing: -0.025em; }
+  .finder__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-4); }
+  .finder__row--end { align-items: end; }
+  .finder .field label, .finder__label { color: var(--p-muted); font-size: 13px; font-weight: 500; }
+  .finder__chips { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); }
+  .finder__label { flex-basis: 100%; margin-bottom: var(--s-1); }
+  .chip { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; font: 500 13px/1 var(--font-text);
+    border: 1px solid rgb(10 10 10 / .16); background: #fff; color: #0a0a0a; cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out), border-color var(--duration-fast) var(--ease-smooth-out); }
+  .chip:hover { border-color: rgb(10 10 10 / .4); }
+  .chip[aria-pressed="true"] { background: #0a0a0a; border-color: #0a0a0a; color: #fff; }
+  .finder__go { width: 100%; justify-content: center; }
+
+  /* under 1024 the card leaves the hero (the booking form below does its job) and the main button joins the words */
+  @media (max-width: 1023px) {
+    .finder { display: none; }
+    .hero--inset { padding-block: calc(var(--nav) + 56px) 56px; }
+    .hero-frame__copy { grid-column: 1 / -1; }
+    .hero-frame__book { display: inline-flex; }
+  }
+  @media (max-width: 639px) {
+    .hero--inset { padding-block: calc(var(--nav) + 40px) 40px; }
+    .hero-frame { inset: 0; border-radius: 0; }
+    .hero-frame__img { object-position: 42% 30%; }
+    .hero-frame::after { background: linear-gradient(to top, rgb(0 0 0 / .86), rgb(0 0 0 / .62) 55%, rgb(0 0 0 / .2) 85%); }
+    .hero-frame__copy .btn-row { display: grid; gap: var(--s-3); }
+    .hero-frame__copy .btn { width: 100%; justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) { .chip { transition: none; } }
+
+
+  /* ---------- partner strip at the foot of the About band ---------- */
+  #about > .wrap { display: flex; flex-direction: column; }
+  .partners { margin-top: auto; padding-top: var(--s-7); border-top: 1px solid rgb(255 255 255 / .14); display: grid; gap: var(--s-5); }
+  .partners__head { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
+  .partners__head .t-label { margin: 0; color: rgb(255 255 255 / .72); }
+  .partners__pause { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; cursor: pointer;
+    background: transparent; color: #fff; border: 1px solid rgb(255 255 255 / .24);
+    transition: background-color var(--duration-fast) var(--ease-smooth-out), border-color var(--duration-fast) var(--ease-smooth-out); }
+  .partners__pause:hover { background: rgb(255 255 255 / .08); border-color: rgb(255 255 255 / .5); }
+  .partners__pause svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .partners__pause .i-play { display: none; fill: currentColor; stroke: none; }
+  .partners__pause[aria-pressed="true"] .i-pause { display: none; }
+  .partners__pause[aria-pressed="true"] .i-play { display: block; }
+  .partners__view { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+  .partners__track { list-style: none; margin: 0; padding: 0 72px 0 0; display: flex; width: max-content; gap: 72px;
+    animation: partners-run 38s linear infinite; }
+  .partners__view:hover .partners__track, .partners.is-paused .partners__track { animation-play-state: paused; }
+  @keyframes partners-run { to { transform: translateX(-50%); } }
+  .logo { display: inline-flex; align-items: center; gap: 10px; height: 32px; color: rgb(255 255 255 / .62); white-space: nowrap;
+    transition: color var(--duration-fast) var(--ease-smooth-out); }
+  .logo:hover { color: #fff; }
+  .logo svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .logo span { font-size: 26px; line-height: 1; }
+  .lw-serif span { font-family: Georgia, "Times New Roman", serif; letter-spacing: -0.01em; }
+  .lw-lower span { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.04em; }
+  .lw-caps span { font-family: var(--font-text); font-weight: 500; font-size: 20px; letter-spacing: 0.14em; }
+  .lw-bold span { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+  @media (max-width: 639px) {
+    .partners__track { gap: 48px; padding-right: 48px; }
+    .logo span { font-size: 21px; } .lw-caps span { font-size: 17px; } .logo svg { width: 22px; height: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .partners__track { animation: none; flex-wrap: wrap; width: auto; row-gap: var(--s-4); }
+    .partners__track > [aria-hidden="true"], .partners__pause { display: none; }
+    .partners__view { -webkit-mask-image: none; mask-image: none; }
+  }
+
+
+  /* ---------- the three plans: tinted cards, the button in a notch cut from the lower-left corner ---------- */
+  .plans { align-items: stretch; }
+  .plan { --notch-bg: var(--bg); --r: 24px; position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column;
+    min-height: 400px; padding: 32px 32px 96px; border-radius: var(--r); background: #fff; color: #0a0a0a;
+    transition: transform var(--duration-slow) var(--ease-smooth-out); }
+  /* hover: the card rises, its icon tile fills and tips, the rings spread, the button's arrow steps on (no shadow) */
+  .plan:hover { transform: translateY(-6px); }
+  .plan--brand { background: var(--p-accent); color: #fff; }
+  .plan--dark { background: #0a0a0a; color: #fff; }
+  /* rings in the far corner, like a plan drawn from above */
+  .plan--brand::before, .plan--dark::before { content: ""; position: absolute; z-index: -1; right: -90px; bottom: -90px; width: 280px; height: 280px; border-radius: 50%;
+    transition: transform 600ms var(--ease-smooth-out), opacity var(--duration-slow) var(--ease-smooth-out); opacity: .8;
+    background: radial-gradient(circle, transparent 0 38%, rgb(255 255 255 / .09) 38% 39%, transparent 39% 56%, rgb(255 255 255 / .09) 56% 57%, transparent 57% 74%, rgb(255 255 255 / .09) 74% 75%, transparent 75%); }
+  .plan__icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; margin-bottom: var(--s-6);
+    border: 1px solid currentColor; border-color: color-mix(in oklab, currentColor 22%, transparent); }
+  .plan:hover::before { transform: scale(1.18) rotate(8deg); opacity: 1; }
+  .plan__icon { transition: background-color var(--duration-fast) var(--ease-smooth-out), border-color var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out), transform var(--duration-slow) var(--ease-smooth-out); }
+  .plan:hover .plan__icon { transform: scale(1.06); }
+  .plan--light:hover .plan__icon { background: var(--p-accent); border-color: var(--p-accent); color: #fff; }
+  .plan--brand:hover .plan__icon { background: #fff; border-color: #fff; color: var(--p-accent); }
+  .plan--dark:hover .plan__icon { background: #fff; border-color: #fff; color: #0a0a0a; }
+  .plan__go .m-arrow { transition: transform var(--duration-fast) var(--ease-smooth-out); }
+  .plan:hover .plan__go .m-arrow { transform: translateX(3px); }
+  .plan__icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .plan--light .plan__icon { color: var(--p-accent); }
+  .plan :is(.plan__name, .plan__price) { color: inherit; }
+  .plan--light { --ink: #0a0a0a; } .plan--brand, .plan--dark { --ink: #fff; }
+  .plan__name { margin: 0; font: 500 16px/1.3 var(--font-text); }
+  .plan__price { margin: var(--s-1) 0 0; font: var(--display-weight) clamp(24px, .8vw + 14px, 30px)/1.15 var(--font-display); letter-spacing: -0.025em; }
+  .plan__text { margin: var(--s-3) 0 0; font-size: 15px; line-height: 1.6; max-width: 36ch; }
+  .plan--light .plan__text { color: #2a2a2a; }
+  .plan--brand .plan__text, .plan--dark .plan__text { color: rgb(255 255 255 / .86); }
+  /* the notch: a block of the section's ground in the corner, with two inverted corners where it meets the card */
+  .plan__notch { position: absolute; left: 0; bottom: 0; padding: 14px 14px 0 0; background: var(--notch-bg); border-top-right-radius: var(--r); }
+  .plan__notch::before, .plan__notch::after { content: ""; position: absolute; width: var(--r); height: var(--r); pointer-events: none;
+    background: radial-gradient(circle at 100% 0, transparent calc(var(--r) - .5px), var(--notch-bg) var(--r)); }
+  .plan__notch::before { left: 0; top: calc(var(--r) * -1); }
+  .plan__notch::after { right: calc(var(--r) * -1); bottom: 0; }
+  html[data-buttons] .plan .btn.btn--secondary.plan__go { min-height: 44px; padding-inline: 20px; font-size: 15px; border-radius: 999px; text-decoration: none; border: 0; }
+  html[data-buttons] .plan--light .btn.plan__go { background: #fff; color: #0a0a0a; box-shadow: inset 0 0 0 1px rgb(10 10 10 / .14); }
+  html[data-buttons] .plan--brand .btn.plan__go { background: var(--p-accent); color: #fff; }
+  html[data-buttons] .plan--dark .btn.plan__go { background: #0a0a0a; color: #fff; }
+  html[data-buttons] .plan .btn.plan__go:hover { filter: brightness(1.08); }
+  @media (max-width: 1023px) {
+    .plans > .plan { grid-column: 1 / -1; min-height: 0; }
+    .plan__icon { margin-bottom: var(--s-5); }
+  }
+  @media (max-width: 639px) { .plan { padding: 28px 24px 96px; } }
+  @media (prefers-reduced-motion: reduce) {
+    .plan, .plan::before, .plan__icon, .plan__go .m-arrow { transition: none; }
+    .plan:hover, .plan:hover::before, .plan:hover .plan__icon, .plan:hover .plan__go .m-arrow { transform: none; }
+  }
+
+
+  /* ---------- sections: as tall as their content, with the same padding above and below ---------- */
+  :root { --secpad: clamp(72px, 7vw + 20px, 128px); }
+  html body main > section.section:not(.hero) { height: auto; min-height: 0; padding-block: var(--secpad); }
+  html body main > section.section:not(.hero) > .wrap { height: auto; }
+  #about .partners { margin-top: var(--s-8); padding-top: var(--s-6); gap: var(--s-4); }
+  #about .mo-wh__text { margin-top: var(--s-4); }
+
+
+  /* ---------- the floor reel: real photographs that play like a short film, one per floor ---------- */
+  .reel { position: relative; overflow: hidden; border-radius: var(--r-lg); background: #111; height: min(600px, calc(100svh - 240px)); min-height: 440px; isolation: isolate; }
+  .reel__slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 900ms var(--ease-smooth-out); }
+  .reel__slide.is-on { opacity: 1; z-index: 1; }
+  .reel__slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.02); transform-origin: 60% 50%; }
+  .reel__slide.is-on img { animation: reel-drift 6.5s linear forwards; }
+  .reel.is-paused .reel__slide.is-on img { animation-play-state: paused; }
+  @keyframes reel-drift { from { transform: scale(1.02) translateX(0); } to { transform: scale(1.14) translateX(-2%); } }
+  .reel::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(to bottom, rgb(0 0 0 / .45), rgb(0 0 0 / 0) 22%, rgb(0 0 0 / 0) 70%, rgb(0 0 0 / .55)); }
+  .reel__top { position: absolute; z-index: 3; top: 16px; left: 16px; right: 16px; display: flex; gap: 6px; }
+  .reel__bar { flex: 1; height: 3px; border-radius: 3px; background: rgb(255 255 255 / .3); overflow: hidden; }
+  .reel__bar i { display: block; height: 100%; width: 0; background: #fff; }
+  .reel__bar.is-done i { width: 100%; }
+  .reel__bar.is-on i { animation: reel-fill var(--reel-ms, 5000ms) linear forwards; }
+  .reel.is-paused .reel__bar.is-on i { animation-play-state: paused; }
+  @keyframes reel-fill { to { width: 100%; } }
+  .reel__foot { position: absolute; z-index: 3; left: 20px; right: 16px; bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); }
+  .reel__tag { margin: 0; padding: 8px 12px; border-radius: 999px; background: rgb(255 255 255 / .92); color: #0a0a0a; font: 500 13px/1.2 var(--font-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .reel__pause { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; border: 0; cursor: pointer;
+    background: rgb(0 0 0 / .55); color: #fff; transition: background-color var(--duration-fast) var(--ease-smooth-out); }
+  .reel__pause:hover { background: rgb(0 0 0 / .75); }
+  .reel__pause svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+  .reel__pause .i-play { display: none; fill: currentColor; stroke: none; }
+  .reel__pause[aria-pressed="true"] .i-pause { display: none; }
+  .reel__pause[aria-pressed="true"] .i-play { display: block; }
+  @media (max-width: 1023px) { .reel { height: auto; min-height: 0; aspect-ratio: 4 / 3; margin-top: var(--s-7); } }
+  @media (prefers-reduced-motion: reduce) {
+    .reel__slide { transition: none; } .reel__slide.is-on img { animation: none; }
+    .reel__bar.is-on i { animation: none; width: 100%; }
+  }
+
+
+  /* the floors: heading and list on the left; the reel a 9:16 frame as tall as that column */
+  .floors-grid { align-items: stretch; }
+  .floors-text .section-head { margin-bottom: var(--s-7); }
+  @media (min-width: 1024px) {
+    html body #floors .reel { height: auto; min-height: 0; align-self: stretch; justify-self: end; width: auto; max-width: 100%; aspect-ratio: 1 / 1; }
+  }
+  @media (max-width: 1023px) {
+    .floors-grid > * { grid-column: 1 / -1; }
+    html body #floors .reel { aspect-ratio: 1 / 1; }
+  }
+
+
+  /* ---------- the day pass: what it includes on the left, the photo with a pass on it on the right ---------- */
+  .daypass { align-items: stretch; }
+  .daypass__text { display: flex; flex-direction: column; }
+  .daypass__text .section-head { margin-bottom: var(--s-7); }
+  .incl { list-style: none; margin: 0 0 var(--s-8); padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--s-6); }
+  .incl li { display: flex; gap: var(--s-4); align-items: flex-start; padding: var(--s-5) 0; border-top: 1px solid rgb(255 255 255 / .22); }
+  .incl__icon { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: rgb(255 255 255 / .12);
+    transition: background-color var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out); }
+  .incl li:hover .incl__icon { background: #fff; color: #a01a14; }
+  .incl__icon svg { width: 22px; height: 22px; }
+  .incl li:nth-child(-n+2) { border-top: 0; padding-top: 0; }
+  @media (max-width: 639px) { .incl li:nth-child(2) { border-top: 1px solid rgb(255 255 255 / .22); padding-top: var(--s-5); } }
+  .incl b { display: block; font-weight: 500; font-size: 16px; line-height: 1.35; }
+  .incl small { display: block; margin-top: 2px; font-size: 14px; line-height: 1.45; color: rgb(255 255 255 / .9); }
+  .daypass__text .btn-row { margin-top: auto; }
+  .daypass__media { position: relative; margin: 0; border-radius: var(--r-lg); overflow: hidden; min-height: 420px; }
+  .daypass__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-smooth-out); }
+  .daypass__media:hover > img { transform: scale(1.03); }
+  /* the pass: a white ticket with a punched stub */
+  .ticket { --hole: 14px; position: absolute; left: 24px; bottom: 24px; display: flex; color: #0a0a0a;
+    filter: drop-shadow(0 18px 30px rgb(0 0 0 / .35)); transform: rotate(-3deg); transform-origin: left bottom;
+    transition: transform var(--duration-slow) var(--ease-smooth-out); }
+  .daypass__media:hover .ticket { transform: rotate(0deg) translateY(-4px); }
+  .ticket > div { background: #fff; padding: 18px 22px; display: grid; align-content: center; gap: 2px; }
+  .ticket__main { border-radius: 14px 0 0 14px; min-width: 150px;
+    -webkit-mask: radial-gradient(circle var(--hole) at 100% 0, transparent 98%, #000) top / 100% 51% no-repeat, radial-gradient(circle var(--hole) at 100% 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+            mask: radial-gradient(circle var(--hole) at 100% 0, transparent 98%, #000) top / 100% 51% no-repeat, radial-gradient(circle var(--hole) at 100% 100%, transparent 98%, #000) bottom / 100% 51% no-repeat; }
+  .ticket__stub { border-radius: 0 14px 14px 0; border-left: 2px dashed rgb(10 10 10 / .2);
+    -webkit-mask: radial-gradient(circle var(--hole) at 0 0, transparent 98%, #000) top / 100% 51% no-repeat, radial-gradient(circle var(--hole) at 0 100%, transparent 98%, #000) bottom / 100% 51% no-repeat;
+            mask: radial-gradient(circle var(--hole) at 0 0, transparent 98%, #000) top / 100% 51% no-repeat, radial-gradient(circle var(--hole) at 0 100%, transparent 98%, #000) bottom / 100% 51% no-repeat; }
+  .ticket__kicker { font: 500 13px/1.2 var(--font-text); color: #a01a14; }
+  .ticket__big { font: var(--display-weight) 44px/1 var(--font-display); letter-spacing: -0.03em; }
+  .ticket__stub span { font-size: 13px; color: #555; }
+  .ticket__stub b { font: 500 16px/1.3 var(--font-text); }
+  @media (max-width: 1023px) {
+    .daypass > * { grid-column: 1 / -1; }
+    .daypass__text .btn-row { margin-top: 0; }
+    .daypass__media { margin-top: var(--s-7); min-height: 0; aspect-ratio: 4 / 3; }
+  }
+  @media (max-width: 639px) {
+    .incl { grid-template-columns: 1fr; }
+    .ticket { left: 16px; bottom: 16px; }
+    .ticket > div { padding: 14px 16px; } .ticket__main { min-width: 110px; } .ticket__big { font-size: 34px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticket, .daypass__media > img, .incl__icon { transition: none; }
+    .daypass__media:hover .ticket { transform: rotate(-3deg); } .daypass__media:hover > img { transform: none; }
+  }
+
+
+  /* reviews: heading and quotes on the left; the photo as tall as that column */
+  .reviews-grid { align-items: stretch; }
+  .reviews-col .section-head { margin-bottom: var(--s-7); }
+  .reviews > figure:last-child { border-bottom: 0; padding-bottom: 0; }
+  @media (min-width: 1024px) { html body #reviews .reviews-photo { height: auto; min-height: 0; align-self: stretch; } }
+
+
+  /* booking: heading and form on the left; the photo as tall as that column */
+  .book-grid { align-items: stretch; }
+  .book-col .section-head { margin-bottom: var(--s-6); }
+  .book-col .form__status:empty { display: none; }
+  @media (min-width: 1024px) {
+    html body #book .book-photo, html body #reviews .reviews-photo { height: auto; min-height: 0; align-self: stretch; position: relative; }
+    #book .book-photo > img, #reviews .reviews-photo > img { position: absolute; inset: 0; }
+  }
+
+
+  /* hero: three quick facts under the buttons */
+  .hero-strip { list-style: none; margin: var(--s-6) 0 0; padding: var(--s-5) 0 0; border-top: 1px solid rgb(255 255 255 / .22);
+    display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 0; }
+  .hero-strip li { display: grid; gap: 2px; padding: 0 var(--s-6); border-left: 1px solid rgb(255 255 255 / .22); }
+  .hero-strip li:first-child { padding-left: 0; border-left: 0; }
+  .hero-strip b { font: 500 16px/1.3 var(--font-text); color: #fff; }
+  .hero-strip span { font-size: 13px; line-height: 1.4; color: rgb(255 255 255 / .78); }
+  .finder { gap: var(--s-4); padding: 28px; }
+  @media (max-width: 1023px) { .hero-strip { display: none; } }
+
+
+  /* ---------- header: see-through over the hero, solid white once the page scrolls ---------- */
+  html body header.nav { transition: background-color var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out),
+    border-color var(--duration-fast) var(--ease-smooth-out), box-shadow var(--duration-fast) var(--ease-smooth-out);
+    box-shadow: 0 10px 30px -18px rgb(0 0 0 / .25); }
+  html body header.nav.is-top:not(:hover):not(:focus-within):not(.is-open) { --ink: #fff; --line: rgb(255 255 255 / .16); background: transparent; color: #fff; border-bottom-color: rgb(255 255 255 / .16); box-shadow: none; }
+  html body header.nav.is-top:not(:hover):not(:focus-within):not(.is-open) :is(.nav__link, .nav__logo) { color: #fff; }
+  html body header.nav.is-top:not(:hover):not(:focus-within):not(.is-open) .nav__toggle { color: #fff; border-color: rgb(255 255 255 / .4); background: transparent; }
+  .nav__logo { gap: 10px; }
+  .nav__logo .logo-mark { width: 28px; height: 28px; flex: none; }
+  @media (min-width: 1024px) {
+    .nav__links { justify-content: center; }
+    .nav__link { font-weight: 500; }
+  }
+  .nav__pass { font-weight: 500; }
+  html[data-buttons] .nav .btn.btn--primary.nav__cta { border-radius: 999px; padding-inline: 20px 18px; gap: 8px; }
+  @media (max-width: 1199px) { .nav__pass { display: none; } }
+  @media (prefers-reduced-motion: reduce) { html body header.nav { transition: none; } }
+
+  /* footer legal row: copyright left, credits right, one line */
+  .footer__legal { flex-wrap: nowrap; align-items: center; font-size: var(--t-label); color: var(--muted); }
+  .footer__legal .credits { flex-basis: auto; text-align: right; }
+  @media (max-width: 639px) { .footer__legal { flex-wrap: wrap; } .footer__legal .credits { text-align: left; } }
+
+  /* reviews: three quotes as rows */
+  .reviews { display: grid; gap: 0; }
+  .reviews > figure { margin: 0; padding-block: var(--s-5); border-bottom: 1px solid var(--line); display: grid; gap: var(--s-3); }
+  .reviews > figure:first-child { padding-top: 0; }
+  .reviews blockquote { margin: 0; font: var(--display-weight) clamp(18px, .3vw + 15px, 20px)/1.5 var(--font-display); letter-spacing: -0.005em; }
+  .reviews .q { color: var(--p-accent); }
+  .reviews figcaption { font-size: 14px; line-height: 1.4; color: var(--muted); }
+
+  /* day pass and reviews: the photo a 1:1 square as tall as the text column, on the right line (as on the floors) */
+  @media (min-width: 1024px) {
+    html body #day-pass .daypass__media, html body #reviews .reviews-photo {
+      min-height: 0; height: auto; align-self: stretch; justify-self: end; width: auto; max-width: 100%; aspect-ratio: 1 / 1; }
+  }
+  @media (max-width: 1023px) {
+    html body #day-pass .daypass__media, html body #reviews .reviews-photo { aspect-ratio: 1 / 1; height: auto; }
+    #reviews .reviews-photo { position: relative; } #reviews .reviews-photo > img { position: absolute; inset: 0; }
+  }
+
+  /* every section photo: one square size, top-aligned with its heading, on the right line */
+  :root { --sq: min(38vw, 560px); }
+  @media (min-width: 1024px) {
+    html body #floors .reel, html body #day-pass .daypass__media, html body #reviews .reviews-photo, html body #book .book-photo {
+      width: var(--sq); height: var(--sq); max-width: 100%; min-height: 0; aspect-ratio: 1 / 1;
+      align-self: start; justify-self: end; position: relative; }
+    #book .book-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  }
+  @media (max-width: 1023px) {
+    html body #book .book-photo { aspect-ratio: 1 / 1; height: auto; position: relative; }
+    #book .book-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  /* the hero card: the same square as the section photos, on the right line */
+  @media (min-width: 1024px) {
+    html body .hero--inset .finder { width: var(--sq); height: auto; min-height: 0; max-width: 100%; justify-self: end; align-self: end; box-sizing: border-box;
+      display: flex; flex-direction: column; justify-content: flex-start; gap: var(--s-5); padding: 32px; }
+    html body .hero--inset .finder__head { margin-bottom: var(--s-1); }
+  }
+
+  /* booking: the form at the top, three next steps at the foot, so the column is as tall as the photo */
+  @media (min-width: 1024px) { .book-col { display: flex; flex-direction: column; } .next-steps { margin-top: auto; } }
+  .next-steps { list-style: none; margin: var(--s-7) 0 0; padding: var(--s-5) 0 0; border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-5); counter-reset: none; }
+  .next-steps li { display: grid; gap: 4px; align-content: start; }
+  .next-steps__n { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 999px; margin-bottom: var(--s-2);
+    background: var(--p-accent); color: #fff; font: 500 var(--fs-sm, 14px)/1 var(--font-text); }
+  .next-steps b { font: 500 var(--fs-body, 16px)/1.35 var(--font-text); }
+  .next-steps li > span:last-child { font-size: var(--fs-sm, 14px); line-height: 1.45; color: var(--muted); }
+  @media (max-width: 639px) { .next-steps { grid-template-columns: 1fr; } .next-steps li { grid-template-columns: 32px 1fr; column-gap: var(--s-4); }
+    .next-steps__n { grid-row: span 2; margin: 0; } }
+
+  /* day pass, flipped: the photo on the left line, the words on the right half */
+  @media (min-width: 1024px) {
+    html body #day-pass .daypass__media { grid-column: 1 / span 6; grid-row: 1; justify-self: start; }
+    html body #day-pass .daypass__text { grid-column: 7 / span 6; grid-row: 1; }
+  }
+
+  /* booking: the photo as a faded, mirrored background across the section; one centred column on top */
+  html body main > section#book { position: relative; isolation: isolate; overflow: hidden; }
+  html body #book .book-photo, html body #book .book-photo { position: absolute; inset: 0; z-index: -1; width: auto; height: auto; max-width: none; min-height: 0;
+    aspect-ratio: auto; margin: 0; border-radius: 0; grid-column: auto; align-self: auto; justify-self: auto; pointer-events: none; }
+  html body #book .book-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); opacity: .2; }
+  html body #book .book-grid { display: block; }
+  html body #book .book-col { max-width: 760px; margin-inline: auto; text-align: center; display: block; }
+  html body #book .book-col .section-head { margin-inline: auto; justify-items: center; max-width: none; }
+  html body #book .book-col .section-head p { margin-inline: auto; max-width: 52ch; }
+  html body #book .form { text-align: left; }
+  html body #book .field :is(input, select) { background-color: #fff; }
+  html body #book .form .btn-row { justify-content: center; }
+  html body #book .form .btn-row .btn { min-width: 240px; justify-content: center; }
+  html body #book .next-steps { margin-top: var(--s-8); text-align: center; }
+  html body #book .next-steps li { justify-items: center; }
+  @media (max-width: 639px) {
+    html body #book .next-steps li { justify-items: start; text-align: left; }
+    html body #book .form .btn-row .btn { width: 100%; }
+  }
+
+  /* booking, reworked: the photo at full strength under a dark tint, white heading, the form and steps in one white card */
+  html body #book .book-photo > img { opacity: 1; }
+  html body #book .book-photo::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgb(10 10 10 / .72), rgb(10 10 10 / .55) 45%, rgb(10 10 10 / .7)); }
+  html body #book .book-col .section-head h2 { color: #fff; }
+  html body #book .book-col .section-head p { color: rgb(255 255 255 / .86); }
+  html body #book .book-col .section-head { margin-bottom: var(--s-7); }
+  .book-card { background: #fff; color: #0a0a0a; border-radius: 24px; padding: 40px; text-align: left;
+    box-shadow: 0 40px 80px -40px rgb(0 0 0 / .6); }
+  html body #book .book-card .form .btn-row { justify-content: stretch; }
+  html body #book .book-card .form .btn-row .btn { width: 100%; min-width: 0; }
+  html body #book .book-card .field :is(input, select) { background-color: #fafafa; }
+  html body #book .book-card .next-steps { margin-top: var(--s-7); padding-top: var(--s-6); border-top: 1px solid rgb(10 10 10 / .1); }
+  html body #book .book-card .next-steps li > span:last-child { color: #5a5a5a; }
+  @media (max-width: 639px) { .book-card { padding: 24px; border-radius: 20px; } }
+
+  /* booking card, reworked: taller rounded fields with a red focus ring, a matching button, a reassurance line, a compact timeline */
+  html body #book .book-card { padding: 40px 40px 36px; }
+  html body #book .book-card .form { gap: var(--s-5) var(--s-5); }
+  html body #book .book-card .field { gap: var(--s-2); }
+  html body #book .book-card .field label { font: 500 var(--fs-sm)/1.3 var(--font-text); color: #2a2a2a; }
+  html body #book .book-card .field :is(input, select) { height: 52px; border-radius: 12px; border: 1px solid rgb(10 10 10 / .12); background-color: #f7f7f7;
+    padding-inline: 16px; font-size: var(--fs-body);
+    transition: background-color var(--duration-fast) var(--ease-smooth-out), border-color var(--duration-fast) var(--ease-smooth-out), box-shadow var(--duration-fast) var(--ease-smooth-out); }
+  html body #book .book-card .field select { padding-right: 44px; }
+  html body #book .book-card .field :is(input, select):hover { border-color: rgb(10 10 10 / .24); }
+  html body #book .book-card .field :is(input, select):focus { outline: none; background-color: #fff; border-color: var(--p-accent); box-shadow: 0 0 0 4px rgb(217 43 33 / .14); }
+  html body #book .book-card .field input::placeholder { color: #9a9a9a; }
+  html body[data-x] #book .book-card .form .btn-row .btn, html[data-buttons] body #book .book-card .form .btn-row .btn { height: 52px; border-radius: 12px; font-size: var(--fs-body); }
+  html body #book .book-card .form .btn-row { margin-top: var(--s-2); }
+  .book-note { grid-column: 1 / -1; margin: 0; text-align: center; font-size: var(--fs-label); line-height: 1.45; color: #6b6b6b; }
+  @media (prefers-reduced-motion: reduce) { html body #book .book-card .field :is(input, select) { transition: none; } }
+
+  /* the three steps as a compact timeline: number beside its text, joined by a line */
+  html body #book .book-card .next-steps { margin-top: var(--s-6); padding-top: var(--s-6); gap: var(--s-4); text-align: left; position: relative; }
+  html body #book .book-card .next-steps li { position: relative; grid-template-columns: 32px 1fr; column-gap: var(--s-3); row-gap: 2px; justify-items: start; text-align: left; align-items: center; }
+  html body #book .book-card .next-steps__n { grid-row: span 2; margin: 0; align-self: start; position: relative; z-index: 1; box-shadow: 0 0 0 4px #fff; }
+  html body #book .book-card .next-steps li:not(:last-child)::after { content: ""; position: absolute; top: 16px; left: 44px; right: calc(var(--s-4) * -1); height: 1px;
+    background: rgb(10 10 10 / .1); z-index: 0; }
+  html body #book .book-card .next-steps li b, html body #book .book-card .next-steps li > span:last-child { position: relative; z-index: 1; background: #fff; padding-right: 8px; justify-self: start; }
+  @media (max-width: 639px) {
+    html body #book .book-card { padding: 24px; }
+    html body #book .book-card .next-steps { grid-template-columns: 1fr; gap: var(--s-5); }
+    html body #book .book-card .next-steps li:not(:last-child)::after { top: 36px; left: 15.5px; right: auto; width: 1px; height: calc(100% - 16px); }
+    html body #book .book-card .next-steps li b, html body #book .book-card .next-steps li > span:last-child { background: none; }
+  }
+
+  /* ================= footer ================= */
+  .site-footer { position: relative; overflow: hidden; background: #0a0a0a; color: #fff; padding-top: var(--secpad);
+    --ink: #fff; --muted: rgb(255 255 255 / .6); --line: rgb(255 255 255 / .12); --line-strong: rgb(255 255 255 / .3); }
+  .sf-cta { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-7); flex-wrap: wrap;
+    padding-bottom: var(--s-9); border-bottom: 1px solid var(--line); }
+  .sf-cta__text { max-width: 620px; display: grid; gap: var(--s-4); }
+  .sf-cta__text h2 { margin: 0; color: #fff; font-size: var(--fs-h2); line-height: var(--lh-tight); }
+  .sf-cta__text p { margin: 0; color: rgb(255 255 255 / .72); font-size: var(--fs-lead); line-height: 1.5; }
+  .sf-cta__actions { display: flex; gap: var(--s-3); flex-wrap: wrap; }
+  .sf-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 24px; border-radius: 999px;
+    font: 500 var(--fs-btn)/1 var(--font-text); text-decoration: none; white-space: nowrap;
+    transition: background-color var(--duration-fast) var(--ease-smooth-out), border-color var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out), transform var(--duration-fast) var(--ease-smooth-out); }
+  .sf-btn:active { transform: scale(.98); }
+  .sf-btn--primary { background: var(--p-accent); color: #fff; }
+  .sf-btn--primary:hover { background: #c22219; }
+  .sf-btn--primary .m-arrow { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform var(--duration-fast) var(--ease-smooth-out); }
+  .sf-btn--primary:hover .m-arrow { transform: translateX(3px); }
+  .sf-btn--ghost { color: #fff; border: 1px solid rgb(255 255 255 / .3); }
+  .sf-btn--ghost:hover { border-color: #fff; background: rgb(255 255 255 / .06); }
+
+  .sf-main { display: grid; grid-template-columns: minmax(0, 2.2fr) repeat(4, minmax(0, 1fr)); gap: var(--s-7); padding-block: var(--s-9); }
+  .sf-logo { display: inline-flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font: 500 22px/1 var(--font-display); letter-spacing: -0.02em; }
+  .sf-logo .logo-mark { width: 28px; height: 28px; }
+  .sf-brand p { margin: var(--s-4) 0 0; max-width: 34ch; color: rgb(255 255 255 / .66); font-size: var(--fs-body); line-height: var(--lh-body); }
+  .sf-col h3 { margin: 0 0 var(--s-4); font: 500 var(--fs-label)/1.3 var(--font-text); color: rgb(255 255 255 / .5); letter-spacing: 0; }
+  .sf-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-3); }
+  .sf-col a, .sf-col span { font-size: var(--fs-body); line-height: 1.4; color: rgb(255 255 255 / .86); text-decoration: none; }
+  .sf-col span { color: rgb(255 255 255 / .6); }
+  .sf-col a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out); }
+  .sf-col a:hover { color: #fff; background-size: 100% 1px; }
+
+  .sf-legal { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding-block: var(--s-5);
+    border-top: 1px solid var(--line); font-size: var(--fs-label); color: rgb(255 255 255 / .55); }
+  .sf-legal .credits { flex-basis: auto; font-size: var(--fs-label); color: inherit; text-align: right; }
+  .sf-legal .credits > summary::after { color: #fff; }
+
+  .sf-word { margin: var(--s-6) 0 0; padding: 0 0 .06em; text-align: center; white-space: nowrap; pointer-events: none; user-select: none;
+    font: var(--display-weight) clamp(110px, 24vw, 380px)/.8 var(--font-display); letter-spacing: -0.06em; color: #1c1c1c; }
+  .sf-word span { color: var(--p-accent); }
+
+  @media (max-width: 1023px) {
+    .sf-main { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .sf-brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 639px) {
+    .sf-cta__actions { width: 100%; flex-direction: column; }
+    .sf-btn { width: 100%; }
+    .sf-main { grid-template-columns: 1fr 1fr; gap: var(--s-7) var(--s-5); padding-block: var(--s-8); }
+    .sf-legal { flex-direction: column; align-items: flex-start; }
+    .sf-legal .credits { text-align: left; }
+  }
+  @media (prefers-reduced-motion: reduce) { .sf-btn, .sf-btn .m-arrow, .sf-col a { transition: none; } }
+
+  .concept-note { margin: calc(var(--s-4) * -1) 0 var(--s-6); font-size: var(--fs-sm); color: var(--muted); }
+
+  /* ================= one type scale for the whole page (last, so it wins) ================= */
+  :root {
+    --fs-display: clamp(40px, 4.2vw + 6px, 66px);
+    --fs-statement: clamp(28px, 2.2vw + 12px, 44px);
+    --fs-h2: clamp(26px, 1.4vw + 16px, 36px);
+    --fs-h3: clamp(22px, .6vw + 17px, 26px);
+    --fs-lead: clamp(18px, .4vw + 14.5px, 20px);
+    --fs-lg: 18px; --fs-body: 16px; --fs-sm: 14px; --fs-label: 13px; --fs-btn: 15px;
+    --lh-tight: 1.1; --lh-body: 1.55; --lh-sm: 1.45;
+    --t-h2: var(--fs-h2);
+  }
+  /* display */
+  .hero-frame__copy h1 { font-size: var(--fs-display); line-height: 1; }
+  #about .mo-wh__text { font-size: var(--fs-statement); line-height: 1.12; }
+  /* headings */
+  main h2, footer h2 { font-size: var(--fs-h2); line-height: var(--lh-tight); }
+  .finder__title, .plan__price, .ticket__big { font-family: var(--font-display); font-weight: var(--display-weight); font-size: var(--fs-h3); line-height: 1.15; letter-spacing: -0.02em; }
+  /* lead */
+  .hero-frame__lead, main .section-head p, .closing__cta .t-lead, .footer__lede { font-family: var(--font-text); font-weight: 400; font-size: var(--fs-lead); line-height: 1.5; letter-spacing: 0; }
+  /* large */
+  .menu-card .t-card { font-size: var(--fs-lg); }
+  .reviews blockquote { font-size: var(--fs-lg); line-height: var(--lh-body); }
+  #floors .rows__value { font-family: var(--font-text); font-size: var(--fs-lg); font-weight: 500; letter-spacing: 0; }
+  /* body */
+  .plan__text, .plan__name, #floors .rows__name, #floors .rows > li > p, .incl b, .hero-strip b { font-size: var(--fs-body); line-height: var(--lh-body); }
+  .plan__name, #floors .rows__name, .incl b, .hero-strip b { font-weight: 500; line-height: 1.35; }
+  /* small */
+  .finder__sub, .incl small, .reviews figcaption, .hero-strip span, .field label, .finder .field label, .finder__label,
+  .footer__col h3, .footer__col a, .ticket__stub span { font-size: var(--fs-sm); line-height: var(--lh-sm); }
+  /* label */
+  .t-label, .chip, .reel__tag, .ticket__kicker, .footer__legal, .footer__legal .credits { font-size: var(--fs-label); }
+  .ticket__stub b { font-size: var(--fs-body); }
+  /* buttons and nav */
+  html[data-buttons] .btn, html[data-buttons] .nav__actions .btn, .nav__link { font-size: var(--fs-btn); font-weight: 500; }
+</style>
+</head>
+<body>
+<!-- type: service (coworking operator: desks and offices sold by the month)
+     deal: hero inset frame with a finder card (the client's reference layout; first dealt photo), nav nav-mega, close close-word (re-dealt for a louder close), footer footer-dark,
+           rhythm space, buttons arrow, mark wordmark, grounds none (kind other)
+     palette white-signal-red, type red-hat
+     moments: word-highlight (#about, the statement); #spaces is three notched plan cards (the client's reference layout)
+     3D: the brief asks for a 3D look, so #floors carries one CSS 3D model of the building (a still render that answers the pointer) -->
+
+<header class="nav is-top">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="#top"><svg class="logo-mark" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="7" fill="#d92b21"/><path d="M6.5 17.5 12 6.5l5.5 11" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13h6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Avenra</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item"><a class="nav__link" href="#about">About</a></div>
+      <div class="nav__item">
+        <a class="nav__link" href="#spaces">Spaces <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">Memberships</p>
+              <a href="#spaces">Hot desk<span>Any open desk, weekdays</span></a>
+              <a href="#spaces">Dedicated desk<span>Your own desk, any hour</span></a>
+              <a href="#spaces">Private office<span>A locking room for 2 to 20</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">The building</p>
+              <a href="#floors">Floor by floor<span>What sits on each level</span></a>
+              <a href="#day-pass">Free day pass<span>Try a desk before you join</span></a>
+            </div>
+            <a class="menu-card span-3 start-10" href="#book">
+              <div class="panel"><img class="frame__img" src="img/desks.jpg" alt="Rows of desks on an open office floor" loading="lazy"></div>
+              <span class="t-card">Tours on weekdays</span>
+              <span class="t-small muted">Twenty minutes, 9 to 5</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#floors">Floors</a></div>
+      <div class="nav__item"><a class="nav__link" href="#reviews">Reviews</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="nav__link nav__pass" href="#day-pass">Get a day pass</a>
+      <a class="btn btn--primary nav__cta" href="#book">Book a tour<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO: photo (dealt) -->
+  <section class="hero hero--inset" data-enter aria-labelledby="hero-h">
+    <div class="hero-frame" aria-hidden="true"><img class="hero-frame__img" src="img/hero-founder.jpg" alt="" fetchpriority="high" data-source="library" data-subject="coworking floor"></div>
+    <div class="wrap">
+      <div class="hero-text grid">
+        <div class="hero-frame__copy span-6">
+          <h1 id="hero-h">Coworking offices for <em>founders</em></h1>
+          <p class="hero-frame__lead">Hot desks, fixed desks and lockable offices for teams of 1 to 20, month to month. Desks from <span data-assumed>$290 a month</span>.</p>
+          <div class="btn-row">
+            <a class="btn btn--primary hero-frame__book" href="#book">Book a tour<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+            <a class="btn btn--secondary hero-frame__pill" href="#spaces">See the spaces<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          </div>
+          <ul class="hero-strip">
+            <li><b>Month to month</b><span>No long lease to sign</span></li>
+            <li><b>1 to 20 people</b><span>Desks or a private office</span></li>
+            <li><b data-assumed>24/7 keycard</b><span>On fixed desks and offices</span></li>
+          </ul>
+        </div>
+        <form class="finder span-6 start-7" action="#book" data-finder aria-labelledby="finder-h">
+          <div class="finder__head"><p class="finder__title" id="finder-h">Find your space</p><p class="finder__sub">Pick what you need and we reply with a tour time within one working day.</p></div>
+          <div class="finder__row">
+            <div class="field"><label for="h-space">Space</label>
+              <select id="h-space" name="space">
+                <option>Hot desk</option><option>Dedicated desk</option><option selected>Private office</option><option>Free day pass</option>
+              </select></div>
+            <div class="field"><label for="h-team">Team size</label>
+              <select id="h-team" name="team">
+                <option>Just me</option><option selected>2 to 5 people</option><option>6 to 10 people</option><option>11 to 20 people</option>
+              </select></div>
+          </div>
+          <div class="finder__chips" role="group" aria-labelledby="finder-need">
+            <span class="finder__label" id="finder-need">Must have</span>
+            <button class="chip" type="button" aria-pressed="true">24-hour access</button>
+            <button class="chip" type="button" aria-pressed="false">Meeting rooms</button>
+            <button class="chip" type="button" aria-pressed="false">Phone booths</button>
+            <button class="chip" type="button" aria-pressed="false">Parking</button>
+          </div>
+          <div class="finder__row finder__row--end">
+            <div class="field"><label for="h-day">Move-in date</label>
+              <input id="h-day" name="day" type="date" autocomplete="off"></div>
+            <button class="btn btn--primary finder__go" type="submit">Book a tour<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT US: word-highlight statement -->
+  <section class="section statement ground-inverse" id="about" data-moment="word-highlight" aria-label="About us">
+    <div class="wrap">
+      <p class="t-label">About us</p>
+      <p class="mo-wh__text">We lease whole floors of office buildings and fit them out for teams that have outgrown the kitchen table but are not ready for a five-year lease. Every contract runs <strong>month to month</strong>.</p>
+      <!-- partner strip: stand-in names for the client's real partner logos (SVG files go in each li) -->
+      <div class="partners" role="group" aria-labelledby="partners-h">
+        <div class="partners__head">
+          <p class="t-label" id="partners-h">Our partners and member companies</p>
+          <button class="partners__pause" type="button" aria-pressed="false" aria-label="Pause the logo strip">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-pause" d="M5 3.5v9M11 3.5v9"/><path class="i-play" d="M5 3.5l8 4.5-8 4.5z"/></svg>
+          </button>
+        </div>
+        <div class="partners__view">
+          <ul class="partners__track"><li class="logo lw-serif"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18" /></svg><span>Brightwell</span></li><li class="logo lw-lower"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/></svg><span>okto labs</span></li><li class="logo lw-caps"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V8M12 8c0-4 4-5 7-5-0 4-3 7-7 7M12 13c0-3-3-5-7-5 0 4 3 6 7 6"/></svg><span>FERNHILL</span></li><li class="logo lw-bold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-10 4 6 3-4 5 8z"/></svg><span>Quanta Freight</span></li><li class="logo lw-serif"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18V6l8 8 8-8v12"/></svg><span>Marlo Studio</span></li><li class="logo lw-lower"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="5"/><circle cx="16" cy="12" r="5"/></svg><span>tessin</span></li><li class="logo lw-bold"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4v16M19 4v16M5 12h14"/></svg><span>Halvard &amp; Co</span></li><li class="logo lw-caps"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 20 4M9 4h11v11"/></svg><span>PIVOTLINE</span></li><li class="logo lw-serif" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18" /></svg><span>Brightwell</span></li><li class="logo lw-lower" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/></svg><span>okto labs</span></li><li class="logo lw-caps" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V8M12 8c0-4 4-5 7-5-0 4-3 7-7 7M12 13c0-3-3-5-7-5 0 4 3 6 7 6"/></svg><span>FERNHILL</span></li><li class="logo lw-bold" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-10 4 6 3-4 5 8z"/></svg><span>Quanta Freight</span></li><li class="logo lw-serif" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18V6l8 8 8-8v12"/></svg><span>Marlo Studio</span></li><li class="logo lw-lower" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="5"/><circle cx="16" cy="12" r="5"/></svg><span>tessin</span></li><li class="logo lw-bold" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4v16M19 4v16M5 12h14"/></svg><span>Halvard &amp; Co</span></li><li class="logo lw-caps" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 20 4M9 4h11v11"/></svg><span>PIVOTLINE</span></li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES 1: the three memberships as notched cards -->
+  <section class="section ground-surface" id="spaces" style="--hm: 2" aria-labelledby="spaces-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="spaces-h">Desks and offices by the month</h2>
+        <p>Three ways to work here, all on a monthly contract with a month's notice.</p>
+      </div>
+      <div class="grid plans">
+        <article class="plan plan--light span-4">
+          <span class="plan__icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="7" width="18" height="12" rx="1.5"/><path d="M4 23h24M12 19v4M20 19v4"/></svg></span>
+          <h3 class="plan__name">Hot desk</h3>
+          <p class="plan__price"><span data-assumed>From $290 a month</span></p>
+          <p class="plan__text">Any open desk on the floor, weekdays 8 to 7. Take the seat by the window and keep your things in a day locker.</p>
+          <div class="plan__notch"><a class="btn btn--secondary plan__go" href="#book" data-space="Hot desk">Book a hot desk<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a></div>
+        </article>
+        <article class="plan plan--brand span-4">
+          <span class="plan__icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="5" width="20" height="13" rx="1.5"/><path d="M16 18v5M11 23h10M4 27h24"/><circle cx="23.5" cy="25" r="0" /></svg></span>
+          <h3 class="plan__name">Dedicated desk</h3>
+          <p class="plan__price"><span data-assumed>From $450 a month</span></p>
+          <p class="plan__text">The same desk every day with a monitor, a locking pedestal and a keycard that opens the floor at any hour.</p>
+          <div class="plan__notch"><a class="btn btn--secondary plan__go" href="#book" data-space="Dedicated desk">Book a fixed desk<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a></div>
+        </article>
+        <article class="plan plan--dark span-4">
+          <span class="plan__icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 28V5h16v23M4 28h24"/><circle cx="19.5" cy="17" r="1.2"/><path d="M12 9h4"/></svg></span>
+          <h3 class="plan__name">Private office</h3>
+          <p class="plan__price">Priced by headcount</p>
+          <p class="plan__text">A furnished room for 2 to 20 people with a door that locks, your name on it, and space to add desks as you hire.</p>
+          <div class="plan__notch"><a class="btn btn--secondary plan__go" href="#book" data-space="Private office">Book an office<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES 2: the building as a CSS 3D model; each row lifts its floor -->
+  <section class="section" id="floors" style="--hm: 2" aria-labelledby="floors-h">
+    <div class="wrap">
+      <div class="grid floors-grid">
+        <div class="floors-text span-6">
+          <div class="section-head">
+        <h2 id="floors-h">Four floors, one keycard</h2>
+        <p>Every membership includes fibre Wi-Fi, a mailing address, coffee and the meeting-room hours on the ground floor.</p>
+      </div>
+          <ul class="rows" data-floor-list>
+          <li data-to="1" tabindex="0" class="is-picked"><span class="rows__name">Level 1: meeting rooms</span><p>Four rooms for 4 to 14 people with screens, plus the kitchen and the front desk.</p><span class="rows__value" data-assumed>4 rooms</span></li>
+          <li data-to="2" tabindex="0"><span class="rows__name">Level 2: hot desks</span><p>Long shared tables by the windows, four phone booths and a quiet room.</p><span class="rows__value" data-assumed>48 seats</span></li>
+          <li data-to="3" tabindex="0"><span class="rows__name">Level 3: dedicated desks</span><p>Fixed desks with monitors and pedestals, open around the clock to keycard holders.</p><span class="rows__value" data-assumed>30 desks</span></li>
+          <li data-to="4" tabindex="0"><span class="rows__name">Level 4: private offices</span><p>Twelve glass-fronted offices, each with its own thermostat and a door that locks.</p><span class="rows__value" data-assumed>12 offices</span></li>
+        </ul>
+        </div>
+        <div class="reel span-6 start-7" data-reel role="region" aria-roledescription="slideshow" aria-label="Photographs of the four floors">
+          <figure class="reel__slide is-on" data-floor="1"><img src="img/meeting.jpg" alt="A long meeting room with a glass wall and a row of chairs" loading="lazy" data-source="library" data-subject="office floor"></figure>
+          <figure class="reel__slide" data-floor="2"><img src="img/hotdesk.jpg" alt="A bright open floor with plants, lounge chairs and shared desks" loading="lazy" data-source="library" data-subject="office floor"></figure>
+          <figure class="reel__slide" data-floor="3"><img src="img/fixeddesk.jpg" alt="A desk with a monitor and laptop by a tall window over the city" loading="lazy" data-source="library" data-subject="office floor"></figure>
+          <figure class="reel__slide" data-floor="4"><img src="img/office.jpg" alt="A private office with a wooden table, six chairs and a city view" loading="lazy" data-source="library" data-subject="office floor"></figure>
+          <div class="reel__top" aria-hidden="true"><span class="reel__bar"><i></i></span><span class="reel__bar"><i></i></span><span class="reel__bar"><i></i></span><span class="reel__bar"><i></i></span></div>
+          <div class="reel__foot">
+            <p class="reel__tag" aria-live="polite">Level 1 · meeting rooms</p>
+            <button class="reel__pause" type="button" aria-pressed="false" aria-label="Pause the photographs">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path class="i-pause" d="M5 3.5v9M11 3.5v9"/><path class="i-play" d="M5 3.5l8 4.5-8 4.5z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA: the free day pass -->
+  <section class="section ground-brand" id="day-pass" aria-labelledby="day-h">
+    <div class="wrap">
+      <div class="grid daypass">
+        <div class="daypass__text span-6">
+          <div class="section-head">
+            <h2 id="day-h">A free day pass for your first visit</h2>
+            <p>Pick a weekday, bring a laptop and work from our floors. Decide on a membership after.</p>
+          </div>
+          <ul class="incl">
+            <li><span class="incl__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 4H2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M21 8H3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M21 12H14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M14 8L14 18C14 18.9428 14 19.4142 14.2929 19.7071C14.5858 20 15.0572 20 16 20H19C19.9428 20 20.4142 20 20.7071 19.7071C21 19.4142 21 18.9428 21 18V8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M3 4V20M21 4V8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg></span><span><b>A hot desk until 7</b><small>Any open seat on level 2</small></span></li>
+            <li><span class="incl__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.25 14.5C10.25 12.5 13.75 12.5 15.75 14.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M18.5 11.5C14.7324 8.16667 9.5 8.16667 5.5 11.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M2 8.5C8.31579 3.16669 15.6842 3.16668 22 8.49989" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><circle cx="12" cy="18" r="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg></span><span><b>Wi-Fi and coffee</b><small>Fibre line, bean-to-cup machine</small></span></li>
+            <li><span class="incl__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 11.5V12.5L9 12.5V11.5C9 10.5681 9 10.1022 9.15224 9.73463C9.35523 9.24458 9.74458 8.85523 10.2346 8.65224C10.6022 8.5 11.0681 8.5 12 8.5C12.9319 8.5 13.3978 8.5 13.7654 8.65224C14.2554 8.85523 14.6448 9.24458 14.8478 9.73463C15 10.1022 15 10.5681 15 11.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M13.5 4.5C13.5 5.3284 12.8284 6 12 6C11.1716 6 10.5 5.3284 10.5 4.5C10.5 3.67157 11.1716 3 12 3C12.8284 3 13.5 3.67157 13.5 4.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M21 4.5C21 5.3284 20.3284 6 19.5 6C18.6716 6 18 5.3284 18 4.5C18 3.67157 18.6716 3 19.5 3C20.3284 3 21 3.67157 21 4.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M15.5 21V18.75C15.5 18.0522 15.5 17.7033 15.5861 17.4194C15.78 16.7802 16.2802 16.28 16.9194 16.0861C17.2033 16 17.5522 16 18.25 16C18.9478 16 19.2967 16 19.5806 15.9139C20.2198 15.72 20.72 15.2198 20.9139 14.5806C21 14.2967 21 13.9478 21 13.25V9.97667C21 9.16113 20.3389 8.5 19.5233 8.5C18.9078 8.5 18.3568 8.88183 18.1407 9.45818L17.4867 11.2022C17.2513 11.83 17.1336 12.1439 16.8766 12.3219C16.6196 12.5 16.2844 12.5 15.614 12.5H15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M8.5 21V18.75C8.5 18.0522 8.5 17.7033 8.41388 17.4194C8.21998 16.7802 7.71977 16.28 7.08057 16.0861C6.79667 16 6.44778 16 5.75 16C5.05222 16 4.70333 16 4.41943 15.9139C3.78023 15.72 3.28002 15.2198 3.08612 14.5806C3 14.2967 3 13.9478 3 13.25V9.97667C3 9.16113 3.66113 8.5 4.47667 8.5C5.09221 8.5 5.64318 8.88183 5.85932 9.45818L6.51334 11.2022C6.74874 11.83 6.86644 12.1439 7.12341 12.3219C7.38037 12.5 7.71558 12.5 8.386 12.5H9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M3 4.5C3 5.3284 3.67157 6 4.5 6C5.32843 6 6 5.3284 6 4.5C6 3.67157 5.32843 3 4.5 3C3.67157 3 3 3.67157 3 4.5Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M19 16V21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M5 16V21" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg></span><span><b>An hour in a meeting room</b><small>Screens for 4 to 14 people</small></span></li>
+            <li><span class="incl__icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.04253 9.89057L8.32962 9.54607C9.13196 8.58326 9.53312 8.10186 9.67708 7.56536C9.79932 7.10976 9.79165 6.62904 9.65494 6.17757C9.49394 5.64593 9.07762 5.17757 8.24498 4.24085C7.64122 3.56162 7.33933 3.222 6.97835 3.09096C6.67272 2.98002 6.33952 2.97023 6.0279 3.06303C5.65985 3.17264 5.33854 3.49395 4.69593 4.13656L3.87514 4.95736C3.42449 5.408 3.19917 5.63332 3.08405 5.94695C2.96892 6.26057 2.99192 6.54106 3.03791 7.10204C3.64253 14.477 9.52318 20.3577 16.8981 20.9623C17.4591 21.0083 17.7396 21.0313 18.0532 20.9161C18.3669 20.801 18.5922 20.5757 19.0428 20.125L19.8636 19.3043C20.5062 18.6616 20.8275 18.3403 20.9371 17.9723C21.03 17.6607 21.0202 17.3275 20.9092 17.0218C20.7782 16.6608 20.4386 16.359 19.7593 15.7552C18.8226 14.9226 18.3542 14.5062 17.8226 14.3452C17.3711 14.2085 16.8904 14.2009 16.4348 14.3231C15.8983 14.4671 15.4169 14.8682 14.4541 15.6706L14.1096 15.9577C11.2048 14.9894 9.00786 12.7866 8.04253 9.89057Z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5"/></svg></span><span><b>The phone booths</b><small>Four soundproofed booths</small></span></li>
+          </ul>
+          <div class="btn-row"><a class="btn btn--primary" href="#book" data-space="Free day pass">Get a day pass<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a></div>
+        </div>
+        <div class="daypass__media span-6 start-7">
+          <img src="img/floor.jpg" alt="A busy coworking floor with long desks under string lights" loading="lazy" width="1800" height="1200" data-source="library" data-subject="coworking floor">
+          <div class="ticket" aria-hidden="true">
+            <div class="ticket__main"><span class="ticket__kicker">Day pass</span><span class="ticket__big">Free</span></div>
+            <div class="ticket__stub"><span>Any weekday</span><b>8:00 to 19:00</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS: stand-in copy; replace with the client's own member reviews before launch -->
+  <section class="section" id="reviews" style="--hm: 2" aria-labelledby="reviews-h">
+    <div class="wrap">
+      <div class="grid reviews-grid">
+        <div class="reviews-col span-6">
+          <div class="section-head">
+        <h2 id="reviews-h">Member reviews</h2>
+          <p class="concept-note">Sample reviews written for this design concept.</p>
+      </div>
+          <div class="reviews">
+          <figure>
+            <blockquote><span class="q">&ldquo;</span>We went from a cafe table to a four-person office in a week. When we hired two more, we moved one door down and signed nothing new.&rdquo;</blockquote>
+            <figcaption>Founder of a logistics startup, private office</figcaption>
+          </figure>
+          <figure>
+            <blockquote><span class="q">&ldquo;</span>I needed a business address and a room to meet clients twice a month. A hot desk covers both for less than my old coworking day rate.&rdquo;</blockquote>
+            <figcaption>Independent accountant, hot desk</figcaption>
+          </figure>
+          <figure>
+            <blockquote><span class="q">&ldquo;</span>The keycard works at 2 a.m. That alone was worth the switch during our launch week.&rdquo;</blockquote>
+            <figcaption>Co-founder of a design studio, dedicated desks</figcaption>
+          </figure>
+        </div>
+        </div>
+        <figure class="split-photo reviews-photo span-6 start-7"><img src="img/members.jpg" alt="Four people working on laptops around a wooden table" loading="lazy" width="1400" height="934" data-source="library" data-subject="members at work"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FOR FINAL BOOKING: the tour form -->
+  <section class="section ground-surface" id="book" style="--hm: 2" aria-labelledby="book-h">
+    <figure class="book-photo" aria-hidden="true"><img src="img/lounge.jpg" alt="" loading="lazy" width="1400" height="933" data-source="library" data-subject="lounge"></figure>
+    <div class="wrap">
+      <div class="grid book-grid">
+        <div class="book-col span-6">
+        <div class="section-head">
+          <h2 id="book-h">Book a tour of the floors</h2>
+          <p>Tours run on weekdays from 9 to 5 and take 20 minutes. We reply within one working day with a time.</p>
+        </div>
+        <div class="book-card">
+          <form class="form" id="book-form" data-endpoint="" data-sent="Your tour request is in. We reply within one working day." novalidate>
+          <div class="field"><label for="f-name">Name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Jane Smith" required aria-describedby="f-name-err">
+            <p class="field__error" id="f-name-err" hidden>Write the name the tour is under.</p></div>
+          <div class="field"><label for="f-email">Work email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="jane@company.com" required aria-describedby="f-email-err">
+            <p class="field__error" id="f-email-err" hidden>Write an email address with an @, like name@company.com.</p></div>
+          <div class="field"><label for="f-space">Space</label>
+            <select id="f-space" name="space" required aria-describedby="f-space-err">
+              <option value="">Choose one</option>
+              <option>Free day pass</option>
+              <option>Hot desk</option>
+              <option>Dedicated desk</option>
+              <option>Private office</option>
+            </select>
+            <p class="field__error" id="f-space-err" hidden>Choose the space you want to see.</p></div>
+          <div class="field"><label for="f-day">Preferred day</label>
+            <input id="f-day" name="day" type="date" autocomplete="off" required aria-describedby="f-day-err">
+            <p class="field__error" id="f-day-err" hidden>Pick the weekday you want to come.</p></div>
+          <input type="hidden" name="team" id="f-team-h"><input type="hidden" name="needs" id="f-needs-h">
+          <div class="btn-row"><button class="btn btn--primary" type="submit">Book a tour<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></button></div>
+          <p class="form__status" role="status" data-form-status></p>
+          <p class="book-note">No payment and no commitment. We only use your email to send the tour time.</p>
+        </form>
+          <ol class="next-steps" aria-label="What happens next">
+            <li><span class="next-steps__n">1</span><b>We confirm a time</b><span>By email within a day</span></li>
+            <li><span class="next-steps__n">2</span><b>A 20-minute tour</b><span>Desks, offices, rooms</span></li>
+            <li><span class="next-steps__n">3</span><b>Try a free day</b><span>Test the floor first</span></li>
+          </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="sf-cta">
+      <div class="sf-cta__text">
+        <h2 id="close-h">Questions before your tour</h2>
+        <p>Ask about office sizes, contracts or parking and the floor manager writes back within a day.</p>
+      </div>
+      <div class="sf-cta__actions">
+        <a class="sf-btn sf-btn--primary" href="#book">Book a tour<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+        <a class="sf-btn sf-btn--ghost" href="mailto:hello@avenra.example">Email the floor manager</a>
+      </div>
+    </div>
+    <div class="sf-main">
+      <div class="sf-brand">
+        <a class="sf-logo" href="#top"><svg class="logo-mark" viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="7" fill="#d92b21"/><path d="M6.5 17.5 12 6.5l5.5 11" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13h6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Avenra</a>
+        <p>Desks and offices for teams with no office yet. Monthly contracts, four floors, one keycard.</p>
+      </div>
+      <nav class="sf-col" aria-label="Spaces"><h3>Spaces</h3><ul><li><a href="#spaces">Memberships</a></li><li><a href="#floors">Floors</a></li><li><a href="#day-pass">Day pass</a></li></ul></nav>
+      <nav class="sf-col" aria-label="Company"><h3>Company</h3><ul><li><a href="#about">About</a></li><li><a href="#reviews">Reviews</a></li></ul></nav>
+      <nav class="sf-col" aria-label="Visit"><h3>Visit</h3><ul><li><a href="#book">Book a tour</a></li><li><span>Tours weekdays, 9 to 5</span></li></ul></nav>
+      <nav class="sf-col" aria-label="Contact"><h3>Contact</h3><ul><li><a href="mailto:hello@avenra.example">Email us</a></li><li><a href="#top">Back to top</a></li></ul></nav>
+    </div>
+    <div class="sf-legal">
+      <span>&copy; 2026 Avenra. Avenra is a fictional brand: this page is a design concept, and its reviews, prices and partner names are illustrative.</span>
+      <details class="credits"><summary>Photographs via Unsplash</summary><p>Interior photographs from Unsplash, used under the Unsplash License.</p></details>
+    </div>
+  </div>
+  <p class="sf-word" aria-hidden="true">Avenra<span>.</span></p>
+</footer>
+
+<script>
+
+
+
+  /* a plan card's button picks that space in the booking form */
+  document.querySelectorAll('.plan__go[data-space], #day-pass [data-space]').forEach((a) => a.addEventListener('click', () => {
+    const sel = document.getElementById('f-space'); if (sel) sel.value = a.dataset.space;
+  }));
+  /* the header sits see-through over the hero, then turns solid once the page has scrolled */
+  (() => {
+    const nav = document.querySelector('header.nav'), hero = document.querySelector('.hero--inset');
+    if (!nav || !hero) return;
+    const sync = () => nav.classList.toggle('is-top', scrollY < 24);
+    sync(); addEventListener('scroll', sync, { passive: true });
+  })();
+  /* design concept: a valid booking shows a note instead of sending anything; invalid fields still get their errors */
+  document.addEventListener('submit', (e) => {
+    const f = e.target;
+    if (!(f instanceof HTMLFormElement) || f.id !== 'book-form') return;
+    if (!f.checkValidity()) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    const st = f.querySelector('[data-form-status]');
+    if (st) st.textContent = 'This is a design concept, so no booking was sent.';
+  }, true);
+  /* the partner strip's pause button */
+  (() => {
+    const box = document.querySelector('.partners'), btn = box && box.querySelector('.partners__pause');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const on = btn.getAttribute('aria-pressed') !== 'true';
+      btn.setAttribute('aria-pressed', String(on));
+      btn.setAttribute('aria-label', on ? 'Play the logo strip' : 'Pause the logo strip');
+      box.classList.toggle('is-paused', on);
+    });
+  })();
+  /* the hero's finder card fills the booking form and takes the visitor to it */
+  (() => {
+    const f = document.querySelector('[data-finder]');
+    if (!f) return;
+    f.querySelectorAll('.chip').forEach((c) => c.addEventListener('click', () => c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true'))));
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const set = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+      set('f-space', f.space.value);
+      set('f-day', f.day.value);
+      set('f-team-h', f.team.value);
+      set('f-needs-h', [...f.querySelectorAll('.chip[aria-pressed="true"]')].map((c) => c.textContent).join(', '));
+      document.getElementById('book').scrollIntoView();
+      document.getElementById('f-name').focus({ preventScroll: true });
+    });
+  })();
+  /* the floor reel: plays one floor every 5 s; a row under the pointer, the keyboard or a tap shows its floor */
+  (() => {
+    const reel = document.querySelector('[data-reel]'), list = document.querySelector('[data-floor-list]');
+    if (!reel || !list) return;
+    const slides = [...reel.querySelectorAll('.reel__slide')], bars = [...reel.querySelectorAll('.reel__bar')];
+    const rows = [...list.querySelectorAll('li')], tag = reel.querySelector('.reel__tag'), btn = reel.querySelector('.reel__pause');
+    const MS = 5000, still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = 0, timer = null, paused = still, held = false, seen = false;
+    reel.style.setProperty('--reel-ms', MS + 'ms');
+    const sync = () => reel.classList.toggle('is-paused', paused || held || !seen);
+    const schedule = () => { clearTimeout(timer); sync(); if (!paused && !held && seen) timer = setTimeout(() => show(i + 1), MS); };
+    function show(n) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle('is-on', k === i));
+      bars.forEach((b, k) => { b.classList.remove('is-on'); b.classList.toggle('is-done', k < i); });
+      void reel.offsetWidth; bars[i].classList.add('is-on');
+      const floor = slides[i].dataset.floor, row = rows.find((r) => r.dataset.to === floor);
+      rows.forEach((r) => r.classList.toggle('is-picked', r === row));
+      tag.textContent = row.querySelector('.rows__name').textContent.replace(':', ' ·');
+      schedule();
+    }
+    btn.addEventListener('click', () => { paused = !paused; btn.setAttribute('aria-pressed', String(paused));
+      btn.setAttribute('aria-label', paused ? 'Play the photographs' : 'Pause the photographs'); paused ? schedule() : show(i); });
+    rows.forEach((r) => {
+      const go = () => { held = true; show(slides.findIndex((s) => s.dataset.floor === r.dataset.to)); };
+      r.addEventListener('pointerenter', go); r.addEventListener('focus', go); r.addEventListener('click', go);
+    });
+    const release = () => { if (!held) return; held = false; show(i); };
+    list.addEventListener('pointerleave', () => { if (!list.contains(document.activeElement)) release(); });
+    list.addEventListener('focusout', (e) => { if (!list.contains(e.relatedTarget)) release(); });
+    /* play only while the reel is on screen */
+    new IntersectionObserver(([e]) => { seen = e.isIntersecting; schedule(); }, { threshold: 0.3 }).observe(reel);
+    if (still) btn.hidden = true;
+    show(0);
+  })();
+</script>
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module" src="assets/layout/layout.js"></script>
+</body>
+</html>
