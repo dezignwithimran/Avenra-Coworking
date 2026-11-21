@@ -167,6 +167,9 @@
   .chip:hover { border-color: rgb(10 10 10 / .4); }
   .chip[aria-pressed="true"] { background: #0a0a0a; border-color: #0a0a0a; color: #fff; }
   .finder__go { width: 100%; justify-content: center; }
+  /* pill fields and button, matching the chips */
+  html body .finder .field :is(input, select) { border-radius: 999px; padding-inline: 22px; background-position: right 20px center; }
+  html[data-buttons] body .finder .btn.btn--primary.finder__go { border-radius: 999px; }
 
   /* under 1024 the card leaves the hero (the booking form below does its job) and the main button joins the words */
   @media (max-width: 1023px) {
