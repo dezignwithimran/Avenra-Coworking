@@ -143,6 +143,8 @@
   .hero-frame__copy h1 { margin: 0; color: #fff; font: var(--display-weight) clamp(42px, 4.6vw, 76px)/1 var(--font-display);
     letter-spacing: -0.04em; max-width: 10ch; text-wrap: balance; }
   .hero-frame__copy h1 em { font-style: normal; color: var(--p-accent); }
+  .hero-frame__copy h1 { max-width: none; }
+  .hero-frame__line { display: block; white-space: nowrap; }
   .hero-frame__lead { margin: 0; color: rgb(255 255 255 / .9); font-size: var(--t-lead); line-height: 1.5; max-width: 40ch; }
   .hero-frame__copy .btn-row { margin-top: var(--s-2); }
   html[data-buttons] .hero--inset .btn.btn--secondary.hero-frame__pill { background: #fff; color: #0a0a0a; border: 0; text-decoration: none;
@@ -707,7 +709,7 @@
     <div class="wrap">
       <div class="hero-text grid">
         <div class="hero-frame__copy span-6">
-          <h1 id="hero-h">Coworking offices for <em>founders</em></h1>
+          <h1 id="hero-h"><span class="hero-frame__line">Coworking offices</span> for <em>founders</em></h1>
           <p class="hero-frame__lead">Hot desks, fixed desks and lockable offices for teams of 1 to 20, month to month. Desks from <span data-assumed>$290 a month</span>.</p>
           <div class="btn-row">
             <a class="btn btn--primary hero-frame__book" href="#book">Book a tour<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
