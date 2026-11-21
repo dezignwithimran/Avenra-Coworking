@@ -536,14 +536,14 @@
   html body #book .book-card .form { gap: var(--s-5) var(--s-5); }
   html body #book .book-card .field { gap: var(--s-2); }
   html body #book .book-card .field label { font: 500 var(--fs-sm)/1.3 var(--font-text); color: #2a2a2a; }
-  html body #book .book-card .field :is(input, select) { height: 52px; border-radius: 12px; border: 1px solid rgb(10 10 10 / .12); background-color: #f7f7f7;
-    padding-inline: 16px; font-size: var(--fs-body);
+  html body #book .book-card .field :is(input, select) { height: 52px; border-radius: 999px; border: 1px solid rgb(10 10 10 / .12); background-color: #f7f7f7;
+    padding-inline: 22px; font-size: var(--fs-body);
     transition: background-color var(--duration-fast) var(--ease-smooth-out), border-color var(--duration-fast) var(--ease-smooth-out), box-shadow var(--duration-fast) var(--ease-smooth-out); }
-  html body #book .book-card .field select { padding-right: 44px; }
+  html body #book .book-card .field select { padding-right: 48px; background-position: right 20px center; }
   html body #book .book-card .field :is(input, select):hover { border-color: rgb(10 10 10 / .24); }
   html body #book .book-card .field :is(input, select):focus { outline: none; background-color: #fff; border-color: var(--p-accent); box-shadow: 0 0 0 4px rgb(217 43 33 / .14); }
   html body #book .book-card .field input::placeholder { color: #9a9a9a; }
-  html body[data-x] #book .book-card .form .btn-row .btn, html[data-buttons] body #book .book-card .form .btn-row .btn { height: 52px; border-radius: 12px; font-size: var(--fs-body); }
+  html body[data-x] #book .book-card .form .btn-row .btn, html[data-buttons] body #book .book-card .form .btn-row .btn { height: 52px; border-radius: 999px; font-size: var(--fs-body); }
   html body #book .book-card .form .btn-row { margin-top: var(--s-2); }
   .book-note { grid-column: 1 / -1; margin: 0; text-align: center; font-size: var(--fs-label); line-height: 1.45; color: #6b6b6b; }
   @media (prefers-reduced-motion: reduce) { html body #book .book-card .field :is(input, select) { transition: none; } }
